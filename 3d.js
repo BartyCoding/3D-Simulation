@@ -9,9 +9,14 @@ class Render {
         return Plane.intersectionWithLine(this.renderPlane, line)
     }
 
-    renderPoint(point) {
+    renderPoint(point, rotation) {
+        if (rotation) {
+            point = Vector.fromMatrix(Matrix.multiply(rotation, Vector.toMatrix(point)))
+            // console.table(point)
+        }
         let intersection = this.calculatePoint(point)
-        // console.log(intersection)
+        // console.table(intersection)
+        // console.log("---------------------")
         ctx.beginPath()
         ctx.arc(intersection.x, intersection.y, 2, 0, 100)
         ctx.fill()
